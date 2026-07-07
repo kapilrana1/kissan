@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: kissan-record
+    runtime: node
+    plan: free
+    rootDir: render-server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: COOKIE_SECRET
+        generateValue: true
+      - key: GOOGLE_SERVICE_ACCOUNT_JSON
+        sync: false
