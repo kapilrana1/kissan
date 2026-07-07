@@ -1,7 +1,7 @@
 {
-  "name": "kisan-record-server",
+  "name": "kissan-record-server",
   "version": "1.0.0",
-  "description": "Kisan Record - standalone Node server (Firestore backend) for Render/other Node hosts",
+  "description": "Kissan Record - standalone Node server (Firestore backend) for Render/other Node hosts",
   "main": "server.js",
   "engines": {
     "node": ">=18"

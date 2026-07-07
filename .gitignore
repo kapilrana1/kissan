@@ -1,5 +1,6 @@
 node_modules/
 service-account.json
+sa-minified.txt
 .env
 *.log
 cookies.txt

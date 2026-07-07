@@ -51,5 +51,5 @@ app.use((req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Kisan Record app running at: http://localhost:${PORT}`);
+  console.log(`Kissan Record app running at: http://localhost:${PORT}`);
 });

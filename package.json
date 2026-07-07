@@ -1,7 +1,7 @@
 {
-  "name": "kisan-record",
+  "name": "kissan-record",
   "version": "1.0.0",
-  "description": "Kisan (Farmer) Record Management System - MVC Architecture",
+  "description": "Kissan (Farmer) Record Management System - MVC Architecture",
   "main": "app.js",
   "engines": {
     "node": ">=22.5.0"

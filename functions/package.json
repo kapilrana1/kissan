@@ -1,7 +1,7 @@
 {
-  "name": "kisan-record-functions",
+  "name": "kissan-record-functions",
   "version": "1.0.0",
-  "description": "Kisan Record - Firebase Functions (Firestore backend)",
+  "description": "Kissan Record - Firebase Functions (Firestore backend)",
   "main": "index.js",
   "engines": {
     "node": "22"

@@ -101,7 +101,7 @@ exports.exportList = async (req, res) => {
   });
 
   styleWorksheet(sheet, {
-    title: 'Kisan Record - Farmer Accounts',
+    title: 'Kissan Record - Farmer Accounts',
     currencyKeys: ['total_amount', 'total_bonus', 'total_advance', 'due'],
     highlightKeys: ['due']
   });

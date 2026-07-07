@@ -1,4 +1,4 @@
-# Kisan Record - Farmer Khata Management System
+# Kissan Record - Farmer Khata Management System
 
 MVC architecture me bana hua application jisme login ke baad sabhi kisano ka khata (record) manage kiya ja sakta hai.
 
@@ -10,7 +10,7 @@ MVC architecture me bana hua application jisme login ke baad sabhi kisano ka kha
 
 ## Folder Structure (MVC)
 ```
-kisan-record/
+kissan-record/
 ├── app.js                 # Entry point
 ├── config/database.js     # DB connection + schema
 ├── models/                 # M - Farmer, User, WheatEntry
@@ -24,7 +24,7 @@ kisan-record/
 ## Setup
 
 ```bash
-cd kisan-record
+cd kissan-record
 npm install
 npm start
 ```

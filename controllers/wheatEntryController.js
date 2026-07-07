@@ -98,7 +98,7 @@ exports.exportAll = async (req, res) => {
   });
 
   styleWorksheet(sheet, {
-    title: 'Kisan Record - Wheat Entry History (All Farmers)',
+    title: 'Kissan Record - Wheat Entry History (All Farmers)',
     currencyKeys: ['rate', 'amount', 'advance_rate', 'previous_advance', 'advance_payment', 'bonus_rate', 'bonus', 'net', 'runningBalance'],
     highlightKeys: ['net', 'runningBalance']
   });
