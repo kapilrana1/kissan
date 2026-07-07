@@ -1,0 +1,46 @@
+<%- include('partials/header') %>
+
+<div class="page-header">
+  <h1>Wheat Entry History (All Farmers)</h1>
+  <a href="/wheat-entries/export" class="btn secondary">Export to Excel</a>
+</div>
+
+<div class="card">
+  <% if (entries.length === 0) { %>
+    <div class="empty-state">No wheat entries recorded yet.</div>
+  <% } else { %>
+    <div style="overflow-x:auto">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th><th>Farmer</th><th>Variety</th><th>Bags</th><th>Quantity</th><th>Rate</th>
+          <th>Amount</th><th>Adv. Rate/Bag</th><th>Prev. Advance</th><th>Advance Payment</th><th>Bonus Rate/Qtl</th><th>Bonus</th><th>Net</th><th>Available Balance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% entries.forEach(e => { %>
+          <% const net = e.amount + e.bonus - e.previous_advance - e.advance_payment; %>
+          <tr>
+            <td><%= e.entry_date %></td>
+            <td><a href="/farmers/<%= e.farmer_id %>"><%= e.farmer_name %></a></td>
+            <td><%= e.wheat_variety || '-' %></td>
+            <td><%= e.bags %></td>
+            <td><%= e.quantity %></td>
+            <td>₹<%= e.rate.toFixed(2) %></td>
+            <td>₹<%= e.amount.toFixed(2) %></td>
+            <td>₹<%= e.advance_rate.toFixed(2) %></td>
+            <td>₹<%= e.previous_advance.toFixed(2) %></td>
+            <td>₹<%= e.advance_payment.toFixed(2) %></td>
+            <td>₹<%= e.bonus_rate.toFixed(2) %></td>
+            <td>₹<%= e.bonus.toFixed(2) %></td>
+            <td class="<%= net >= 0 ? 'due-amount' : 'credit-amount' %>">₹<%= net.toFixed(2) %></td>
+            <td class="<%= e.runningBalance >= 0 ? 'due-amount' : 'credit-amount' %>">₹<%= e.runningBalance.toFixed(2) %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    </div>
+  <% } %>
+</div>
+
+<%- include('partials/footer') %>

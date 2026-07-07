@@ -1,0 +1,63 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "abhishekrana@kishan.org",
+      "password": "$2a$10$YiSW9GhnhU/hQG1B7//dye5bdlMpwC4UJo8h5Rpn34qcnNwCCMsTe",
+      "full_name": "Administrator",
+      "created_at": "2026-07-06 16:43:07"
+    }
+  ],
+  "farmers": [
+    {
+      "id": 1,
+      "name": "Harshit rana",
+      "mobile": " 9012148131",
+      "address": "Ramnagar",
+      "created_by": 1,
+      "created_at": "2026-07-06 16:45:59"
+    },
+    {
+      "id": 2,
+      "name": "Kapil Rana",
+      "mobile": "9837965009",
+      "address": "village Ramnagar PoKelakhera, Teh bazpur ditt Udha",
+      "created_by": 1,
+      "created_at": "2026-07-06 17:56:12"
+    }
+  ],
+  "entries": [
+    {
+      "id": 8,
+      "farmer_id": 1,
+      "wheat_variety": "2967",
+      "bags": 4,
+      "quantity": 120,
+      "rate": 2500,
+      "amount": 300000,
+      "bonus": 2400,
+      "entry_date": "2026-07-06",
+      "created_by": 1,
+      "previous_advance": 6400,
+      "advance_payment": 100000,
+      "advance_rate": 1600,
+      "bonus_rate": 20
+    },
+    {
+      "id": 10,
+      "farmer_id": 2,
+      "wheat_variety": "2967",
+      "bags": 8,
+      "quantity": 220,
+      "rate": 2500,
+      "amount": 550000,
+      "bonus": 3960,
+      "entry_date": "2026-07-06",
+      "created_by": 1,
+      "previous_advance": 12800,
+      "advance_payment": 200000,
+      "advance_rate": 1600,
+      "bonus_rate": 18
+    }
+  ]
+}

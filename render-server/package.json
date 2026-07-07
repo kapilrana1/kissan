@@ -1,0 +1,21 @@
+{
+  "name": "kisan-record-server",
+  "version": "1.0.0",
+  "description": "Kisan Record - standalone Node server (Firestore backend) for Render/other Node hosts",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.10",
+    "exceljs": "^4.4.0",
+    "express": "^4.21.0",
+    "firebase-admin": "^12.6.0",
+    "method-override": "^3.0.0"
+  }
+}

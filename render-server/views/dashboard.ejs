@@ -1,0 +1,54 @@
+<%- include('partials/header') %>
+
+<div class="page-header">
+  <h1>Dashboard</h1>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="label">Total Farmers</div>
+    <div class="value"><%= totalFarmers %></div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Total Wheat Amount</div>
+    <div class="value">₹<%= totalAmount.toFixed(2) %></div>
+  </div>
+  <div class="stat-card payment">
+    <div class="label">Total Bonus / Advance</div>
+    <div class="value">₹<%= totalBonus.toFixed(2) %> / ₹<%= totalAdvance.toFixed(2) %></div>
+  </div>
+  <div class="stat-card due">
+    <div class="label">Total Due to Farmers</div>
+    <div class="value">₹<%= totalDue.toFixed(2) %></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="page-header">
+    <h1 style="font-size:18px">Recent Farmers</h1>
+    <a href="/farmers/new" class="btn">+ Add New Farmer</a>
+  </div>
+
+  <% if (recentFarmers.length === 0) { %>
+    <div class="empty-state">No farmers registered yet.</div>
+  <% } else { %>
+    <table>
+      <thead>
+        <tr><th>Name</th><th>Mobile</th><th>Address</th><th>Due</th><th>Action</th></tr>
+      </thead>
+      <tbody>
+        <% recentFarmers.forEach(f => { %>
+          <tr>
+            <td><%= f.name %></td>
+            <td><%= f.mobile %></td>
+            <td><%= f.address %></td>
+            <td class="<%= f.balance.due > 0 ? 'due-amount' : 'credit-amount' %>">₹<%= f.balance.due.toFixed(2) %></td>
+            <td><a href="/farmers/<%= f.id %>" class="btn small">View</a></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+
+<%- include('partials/footer') %>

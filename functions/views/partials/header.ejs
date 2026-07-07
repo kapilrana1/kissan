@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> | Kisan Record</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<% if (typeof currentUser !== 'undefined' && currentUser) { %>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-brand"><span class="brand-icon">🌾</span> Kisan Record</div>
+      <nav class="sidebar-nav">
+        <a href="/dashboard" class="sidebar-link <%= currentPath.startsWith('/dashboard') ? 'active' : '' %>">
+          <span class="sidebar-icon">📊</span> Dashboard
+        </a>
+        <a href="/farmers" class="sidebar-link <%= currentPath.startsWith('/farmers') ? 'active' : '' %>">
+          <span class="sidebar-icon">👥</span> Farmers
+        </a>
+        <a href="/wheat-entries" class="sidebar-link <%= currentPath.startsWith('/wheat-entries') ? 'active' : '' %>">
+          <span class="sidebar-icon">📝</span> Wheat Entries
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <span class="user-pill"><%= currentUser %></span>
+        <a href="/logout" class="logout-link">Logout</a>
+      </div>
+    </aside>
+    <div class="main-area">
+<% } %>
+<div class="container">
+  <% if (success && success.length) { %>
+    <div class="alert success"><%= success[0] %></div>
+  <% } %>
+  <% if (error && error.length) { %>
+    <div class="alert error"><%= error[0] %></div>
+  <% } %>

@@ -1,0 +1,59 @@
+</div>
+<% if (typeof currentUser !== 'undefined' && currentUser) { %>
+    </div>
+  </div>
+<% } %>
+
+<div id="confirmModal" class="modal-overlay" hidden>
+  <div class="modal-box">
+    <h3>Please Confirm</h3>
+    <p id="confirmMessage">Are you sure?</p>
+    <div class="modal-actions">
+      <button type="button" class="btn secondary" id="confirmCancelBtn">Cancel</button>
+      <button type="button" class="btn danger" id="confirmOkBtn">Delete</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var pendingForm = null;
+  var modal = document.getElementById('confirmModal');
+  var msgEl = document.getElementById('confirmMessage');
+  var okBtn = document.getElementById('confirmOkBtn');
+  var cancelBtn = document.getElementById('confirmCancelBtn');
+
+  document.addEventListener('submit', function (e) {
+    var form = e.target;
+    if (form.hasAttribute('data-confirm')) {
+      e.preventDefault();
+      pendingForm = form;
+      msgEl.textContent = form.getAttribute('data-confirm');
+      modal.hidden = false;
+    }
+  });
+
+  okBtn.addEventListener('click', function () {
+    modal.hidden = true;
+    if (pendingForm) {
+      var form = pendingForm;
+      pendingForm = null;
+      form.submit();
+    }
+  });
+
+  cancelBtn.addEventListener('click', function () {
+    modal.hidden = true;
+    pendingForm = null;
+  });
+
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) {
+      modal.hidden = true;
+      pendingForm = null;
+    }
+  });
+})();
+</script>
+</body>
+</html>

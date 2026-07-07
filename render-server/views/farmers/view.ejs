@@ -1,0 +1,202 @@
+<%- include('../partials/header') %>
+
+<div class="page-header">
+  <h1><%= farmer.name %>'s Account</h1>
+  <div class="actions-row">
+    <a href="/farmers/<%= farmer.id %>/edit" class="btn secondary">Edit Account</a>
+    <a href="/farmers" class="btn secondary">Back</a>
+  </div>
+</div>
+
+<div class="card">
+  <div class="form-row">
+    <div><strong>Mobile:</strong> <%= farmer.mobile %></div>
+    <div><strong>Address:</strong> <%= farmer.address || '-' %></div>
+  </div>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="label">Total Wheat Amount</div>
+    <div class="value">₹<%= balance.total_amount.toFixed(2) %></div>
+  </div>
+  <div class="stat-card payment">
+    <div class="label">Total Bonus</div>
+    <div class="value">₹<%= balance.total_bonus.toFixed(2) %></div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Total Advance (Previous + Payment)</div>
+    <div class="value">₹<%= balance.total_advance.toFixed(2) %></div>
+  </div>
+  <div class="stat-card due">
+    <div class="label">Due to Farmer</div>
+    <div class="value">₹<%= balance.due.toFixed(2) %></div>
+  </div>
+</div>
+
+<div class="card">
+  <h3 style="margin-bottom:12px">Add New Wheat Entry</h3>
+  <form method="POST" action="/farmers/<%= farmer.id %>/entries" id="entryForm">
+    <div class="txn-form-grid">
+      <div class="form-group">
+        <label>Wheat Variety</label>
+        <input type="text" name="wheat_variety" placeholder="e.g. Lokwan">
+      </div>
+      <div class="form-group">
+        <label>Bags</label>
+        <input type="number" name="bags" id="bags" min="0">
+      </div>
+      <div class="form-group">
+        <label>Quantity (Quintal)</label>
+        <input type="number" step="0.01" name="quantity" id="quantity" required>
+      </div>
+      <div class="form-group">
+        <label>Rate (₹ / Quintal)</label>
+        <input type="number" step="0.01" name="rate" id="rate" required>
+      </div>
+      <div class="form-group">
+        <label>Amount (Auto Calculated)</label>
+        <input type="text" id="amountDisplay" readonly value="₹0.00">
+      </div>
+      <div class="form-group">
+        <label>Advance Rate / Bag (₹)</label>
+        <input type="number" step="0.01" name="advance_rate" id="advanceRate" value="0">
+      </div>
+      <div class="form-group">
+        <label>Previous Advance (Auto Calculated)</label>
+        <input type="text" id="previousAdvanceDisplay" readonly value="₹0.00">
+      </div>
+      <div class="form-group">
+        <label>Advance Payment (₹)</label>
+        <input type="number" step="0.01" name="advance_payment" id="advancePayment" value="0">
+      </div>
+      <div class="form-group">
+        <label>Bonus Rate / Quintal (₹)</label>
+        <input type="number" step="0.01" name="bonus_rate" id="bonusRate" value="0">
+      </div>
+      <div class="form-group">
+        <label>Bonus (Auto Calculated)</label>
+        <input type="text" id="bonusDisplay" readonly value="₹0.00">
+      </div>
+      <div class="form-group">
+        <label>Available Balance (Auto Calculated)</label>
+        <input type="text" id="availableBalanceDisplay" readonly value="₹0.00">
+      </div>
+      <div class="form-group">
+        <label>Date</label>
+        <input type="date" name="entry_date" value="<%= new Date().toISOString().slice(0,10) %>">
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn">Add Entry</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="card">
+  <div class="page-header" style="margin-bottom:0">
+    <h3>Wheat Entry History</h3>
+    <a href="/farmers/<%= farmer.id %>/export" class="btn secondary">Export to Excel</a>
+  </div>
+  <% if (entries.length === 0) { %>
+    <div class="empty-state">No wheat entries recorded yet.</div>
+  <% } else { %>
+    <div style="overflow-x:auto">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th><th>Variety</th><th>Bags</th><th>Quantity</th><th>Rate</th>
+          <th>Amount</th><th>Adv. Rate/Bag</th><th>Prev. Advance</th><th>Advance Payment</th><th>Bonus Rate/Qtl</th><th>Bonus</th><th>Net</th><th>Available Balance</th><th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% entries.forEach(e => { %>
+          <% const net = e.amount + e.bonus - e.previous_advance - e.advance_payment; %>
+          <tr>
+            <td><%= e.entry_date %></td>
+            <td><%= e.wheat_variety || '-' %></td>
+            <td><%= e.bags %></td>
+            <td><%= e.quantity %></td>
+            <td>₹<%= e.rate.toFixed(2) %></td>
+            <td>₹<%= e.amount.toFixed(2) %></td>
+            <td>₹<%= e.advance_rate.toFixed(2) %></td>
+            <td>₹<%= e.previous_advance.toFixed(2) %></td>
+            <td>₹<%= e.advance_payment.toFixed(2) %></td>
+            <td>₹<%= e.bonus_rate.toFixed(2) %></td>
+            <td>₹<%= e.bonus.toFixed(2) %></td>
+            <td class="<%= net >= 0 ? 'due-amount' : 'credit-amount' %>">₹<%= net.toFixed(2) %></td>
+            <td class="<%= e.runningBalance >= 0 ? 'due-amount' : 'credit-amount' %>">₹<%= e.runningBalance.toFixed(2) %></td>
+            <td>
+              <form method="POST" action="/farmers/<%= farmer.id %>/entries/<%= e.id %>?_method=DELETE" data-confirm="Delete this wheat entry?">
+                <button type="submit" class="btn small danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    </div>
+  <% } %>
+</div>
+
+<script>
+  const qtyInput = document.getElementById('quantity');
+  const rateInput = document.getElementById('rate');
+  const amountDisplay = document.getElementById('amountDisplay');
+  const bagsInput = document.getElementById('bags');
+  const advanceRateInput = document.getElementById('advanceRate');
+  const previousAdvanceDisplay = document.getElementById('previousAdvanceDisplay');
+  const bonusRateInput = document.getElementById('bonusRate');
+  const bonusDisplay = document.getElementById('bonusDisplay');
+  const advancePaymentInput = document.getElementById('advancePayment');
+  const availableBalanceDisplay = document.getElementById('availableBalanceDisplay');
+  const existingBalance = <%- balance.due %>;
+
+  function updateAmount() {
+    const qty = parseFloat(qtyInput.value) || 0;
+    const rate = parseFloat(rateInput.value) || 0;
+    amountDisplay.value = '₹' + (qty * rate).toFixed(2);
+  }
+
+  function updatePreviousAdvance() {
+    const bags = parseFloat(bagsInput.value) || 0;
+    const advRate = parseFloat(advanceRateInput.value) || 0;
+    previousAdvanceDisplay.value = '₹' + (bags * advRate).toFixed(2);
+  }
+
+  function updateBonus() {
+    const qty = parseFloat(qtyInput.value) || 0;
+    const bonusRate = parseFloat(bonusRateInput.value) || 0;
+    bonusDisplay.value = '₹' + (qty * bonusRate).toFixed(2);
+  }
+
+  function updateAvailableBalance() {
+    const qty = parseFloat(qtyInput.value) || 0;
+    const rate = parseFloat(rateInput.value) || 0;
+    const bags = parseFloat(bagsInput.value) || 0;
+    const advRate = parseFloat(advanceRateInput.value) || 0;
+    const bonusRate = parseFloat(bonusRateInput.value) || 0;
+    const advancePayment = parseFloat(advancePaymentInput.value) || 0;
+
+    const amount = qty * rate;
+    const bonus = qty * bonusRate;
+    const previousAdvance = bags * advRate;
+
+    const newBalance = existingBalance + amount + bonus - previousAdvance - advancePayment;
+    availableBalanceDisplay.value = '₹' + newBalance.toFixed(2);
+  }
+
+  [qtyInput, rateInput, bagsInput, advanceRateInput, bonusRateInput, advancePaymentInput].forEach(el => {
+    el.addEventListener('input', updateAvailableBalance);
+  });
+
+  qtyInput.addEventListener('input', updateAmount);
+  rateInput.addEventListener('input', updateAmount);
+  bagsInput.addEventListener('input', updatePreviousAdvance);
+  advanceRateInput.addEventListener('input', updatePreviousAdvance);
+  qtyInput.addEventListener('input', updateBonus);
+  bonusRateInput.addEventListener('input', updateBonus);
+  updateAvailableBalance();
+</script>
+
+<%- include('../partials/footer') %>

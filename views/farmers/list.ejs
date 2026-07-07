@@ -1,0 +1,48 @@
+<%- include('../partials/header') %>
+
+<div class="page-header">
+  <h1>Farmer Accounts List</h1>
+  <div class="actions-row">
+    <a href="/farmers/export?q=<%= encodeURIComponent(search) %>" class="btn secondary">Export to Excel</a>
+    <a href="/farmers/new" class="btn">+ Add New Farmer</a>
+  </div>
+</div>
+
+<form class="search-box" method="GET" action="/farmers">
+  <input type="text" name="q" placeholder="Search by name, mobile or address..." value="<%= search %>">
+  <button class="btn secondary" type="submit">Search</button>
+</form>
+
+<div class="card">
+  <% if (farmers.length === 0) { %>
+    <div class="empty-state">No farmers found. <a href="/farmers/new">Add a new farmer</a>.</div>
+  <% } else { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Mobile</th>
+          <th>Address</th>
+          <th>Due</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% farmers.forEach(f => { %>
+          <tr>
+            <td><%= f.name %></td>
+            <td><%= f.mobile %></td>
+            <td><%= f.address %></td>
+            <td class="<%= f.balance.due > 0 ? 'due-amount' : 'credit-amount' %>">₹<%= f.balance.due.toFixed(2) %></td>
+            <td class="actions-row">
+              <a href="/farmers/<%= f.id %>" class="btn small">View</a>
+              <a href="/farmers/<%= f.id %>/edit" class="btn small secondary">Edit</a>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>

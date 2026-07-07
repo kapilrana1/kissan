@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> | Kisan Record</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="login-wrapper">
+    <div class="login-box">
+      <h1>🌾 Kisan Record</h1>
+      <p class="subtitle">Manage all farmer accounts in one place</p>
+
+      <% if (typeof success !== 'undefined' && success.length) { %>
+        <div class="alert success"><%= success[0] %></div>
+      <% } %>
+      <% if (typeof error !== 'undefined' && error.length) { %>
+        <div class="alert error"><%= error[0] %></div>
+      <% } %>
+
+      <form method="POST" action="/login">
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" name="username" required autofocus>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" required>
+        </div>
+        <button type="submit" class="btn" style="width:100%">Login</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
