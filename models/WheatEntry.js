@@ -42,9 +42,9 @@ const WheatEntry = {
   create(data, userId) {
     const stmt = db.prepare(`
       INSERT INTO wheat_entries
-        (farmer_id, wheat_variety, bags, quantity, rate, amount, advance_rate, previous_advance, advance_payment, bonus_rate, bonus, entry_date, created_by)
+        (farmer_id, crop_type, wheat_variety, bags, quantity, rate, amount, advance_rate, previous_advance, advance_payment, bonus_rate, bonus, entry_date, created_by)
       VALUES
-        (@farmer_id, @wheat_variety, @bags, @quantity, @rate, @amount, @advance_rate, @previous_advance, @advance_payment, @bonus_rate, @bonus, @entry_date, @created_by)
+        (@farmer_id, @crop_type, @wheat_variety, @bags, @quantity, @rate, @amount, @advance_rate, @previous_advance, @advance_payment, @bonus_rate, @bonus, @entry_date, @created_by)
     `);
     return stmt.run({ ...data, created_by: userId });
   },

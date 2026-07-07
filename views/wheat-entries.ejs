@@ -13,7 +13,7 @@
     <table>
       <thead>
         <tr>
-          <th>Date</th><th>Farmer</th><th>Variety</th><th>Bags</th><th>Quantity</th><th>Rate</th>
+          <th>Date</th><th>Farmer</th><th>Crop</th><th>Variety</th><th>Bags</th><th>Quantity</th><th>Rate</th>
           <th>Amount</th><th>Adv. Rate/Bag</th><th>Prev. Advance</th><th>Advance Payment</th><th>Bonus Rate/Qtl</th><th>Bonus</th><th>Net</th><th>Available Balance</th>
         </tr>
       </thead>
@@ -23,6 +23,7 @@
           <tr>
             <td><%= e.entry_date %></td>
             <td><a href="/farmers/<%= e.farmer_id %>"><%= e.farmer_name %></a></td>
+            <td><%= e.crop_type || 'Wheat' %></td>
             <td><%= e.wheat_variety || '-' %></td>
             <td><%= e.bags %></td>
             <td><%= e.quantity %></td>

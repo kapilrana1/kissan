@@ -116,6 +116,7 @@ exports.exportEntries = async (req, res) => {
 
   sheet.columns = [
     { header: 'Date', key: 'entry_date', width: 12 },
+    { header: 'Crop', key: 'crop_type', width: 12 },
     { header: 'Variety', key: 'wheat_variety', width: 16 },
     { header: 'Bags', key: 'bags', width: 8 },
     { header: 'Quantity', key: 'quantity', width: 10 },
@@ -133,6 +134,7 @@ exports.exportEntries = async (req, res) => {
   entries.forEach(e => {
     sheet.addRow({
       entry_date: e.entry_date,
+      crop_type: e.crop_type,
       wheat_variety: e.wheat_variety,
       bags: e.bags,
       quantity: e.quantity,

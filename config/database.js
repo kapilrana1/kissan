@@ -35,6 +35,7 @@ function init() {
     CREATE TABLE IF NOT EXISTS wheat_entries (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       farmer_id INTEGER NOT NULL,
+      crop_type TEXT DEFAULT 'Wheat',
       wheat_variety TEXT,
       bags INTEGER DEFAULT 0,
       quantity REAL NOT NULL DEFAULT 0,
@@ -74,6 +75,10 @@ function init() {
 
   if (wheatEntryColumns.includes('bonus') && !wheatEntryColumns.includes('bonus_rate')) {
     db.exec('ALTER TABLE wheat_entries ADD COLUMN bonus_rate REAL DEFAULT 0');
+  }
+
+  if (!wheatEntryColumns.includes('crop_type')) {
+    db.exec("ALTER TABLE wheat_entries ADD COLUMN crop_type TEXT DEFAULT 'Wheat'");
   }
 
   const oldTransactionsTable = db.prepare(

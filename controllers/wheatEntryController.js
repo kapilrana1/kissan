@@ -4,7 +4,7 @@ const Farmer = require('../models/Farmer');
 const { styleWorksheet } = require('../utils/excelStyle');
 
 exports.create = (req, res) => {
-  const { wheat_variety, bags, quantity, rate, advance_rate, advance_payment, bonus_rate, entry_date } = req.body;
+  const { crop_type, wheat_variety, bags, quantity, rate, advance_rate, advance_payment, bonus_rate, entry_date } = req.body;
   const farmerId = req.params.id;
 
   const farmer = Farmer.findById(farmerId);
@@ -26,6 +26,7 @@ exports.create = (req, res) => {
 
   WheatEntry.create({
     farmer_id: farmerId,
+    crop_type: crop_type || 'Wheat',
     wheat_variety: wheat_variety || '',
     bags: bagCount,
     quantity: qty,
@@ -64,6 +65,7 @@ exports.exportAll = async (req, res) => {
   sheet.columns = [
     { header: 'Date', key: 'entry_date', width: 12 },
     { header: 'Farmer', key: 'farmer_name', width: 20 },
+    { header: 'Crop', key: 'crop_type', width: 12 },
     { header: 'Variety', key: 'wheat_variety', width: 16 },
     { header: 'Bags', key: 'bags', width: 8 },
     { header: 'Quantity', key: 'quantity', width: 10 },
@@ -82,6 +84,7 @@ exports.exportAll = async (req, res) => {
     sheet.addRow({
       entry_date: e.entry_date,
       farmer_name: e.farmer_name,
+      crop_type: e.crop_type,
       wheat_variety: e.wheat_variety,
       bags: e.bags,
       quantity: e.quantity,
