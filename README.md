@@ -1,6 +1,6 @@
 # Kissan Record - Farmer Khata Management System
 
-MVC architecture me bana hua application jisme login ke baad sabhi kisano ka khata (record) manage kiya ja sakta hai.
+MVC architecture me bana hua application jisme login ke baad sabhi kissano ka khata (record) manage kiya ja sakta hai.
 
 ## Tech Stack
 - Node.js (v22.5+) + Express (MVC)
@@ -39,9 +39,9 @@ App chalega: http://localhost:3000
 
 ## Features
 - Secure login/logout (password hashed with bcrypt, session-based auth)
-- Sabhi kisano ka khata: Naam, Mobile, Address
-- Har kisan ke liye Wheat Entry record: Wheat Variety, Bags, Quantity, Rate (Amount auto-calculate = Quantity x Rate), Advance, Bonus
+- Sabhi kissano ka khata: Naam, Mobile, Address
+- Har kissan ke liye Wheat Entry record: Wheat Variety, Bags, Quantity, Rate (Amount auto-calculate = Quantity x Rate), Advance, Bonus
 - Automatic bakaya (due) calculation: Amount + Bonus - Advance
-- Dashboard: total kisan, total wheat amount, total bonus/advance, total due
-- Search kisan by naam/mobile/address
-- Add / Edit / Delete kisan khata aur wheat entries
+- Dashboard: total kissan, total wheat amount, total bonus/advance, total due
+- Search kissan by naam/mobile/address
+- Add / Edit / Delete kissan khata aur wheat entries
